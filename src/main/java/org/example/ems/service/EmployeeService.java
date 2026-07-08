@@ -1,37 +1,45 @@
 package org.example.ems.service;
+import org.example.ems.DTOs.EmployeeDto;
 import org.example.ems.model.Employee;
+import org.example.ems.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class EmployeeService {
-    private final List<Employee> employees = new ArrayList<>();
 
-    public EmployeeService() {
-        employees.add(new Employee("Shruti", 123, "Maths"));
-        employees.add(new Employee("Roshan", 456, "Eng"));
-    }
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     public List<Employee> getAllEmployees() {
-        return employees;
+        return employeeRepository.findAll();
     }
 
-    public void addEmployee(Employee employee) {
-        employees.add(employee);
+    public void addEmployee(EmployeeDto employee) {
+        employeeRepository.save(employeeDtoToEntity(employee));
     }
 
-    public void updateEmployee(Integer id, Employee updatedEmployee) {
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getId().equals(id)) {
-                employees.set(i, updatedEmployee);
-                return;
-            }
-        }
+    public void updateEmployee(Integer id, EmployeeDto updatedEmployee) {
+        Employee employee = employeeRepository.findById(Long.valueOf(id))
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+
+        employee.setName(updatedEmployee.getName());
+        employee.setDepartment(updatedEmployee.getDepartment());
+
+        employeeRepository.save(employee);
     }
 
     public void removeEmployee(Integer id) {
-        Employee emp = employees.stream().filter(e -> e.getId().equals(id)).toList().get(0);
-        employees.remove(emp);
+        Employee employee = employeeRepository.findById(Long.valueOf(id))
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+        employeeRepository.delete(employee);
+    }
+
+    public Employee employeeDtoToEntity(EmployeeDto employeeDto) {
+        Employee employee = new Employee();
+        employee.setName(employeeDto.getName());
+        employee.setDepartment(employeeDto.getDepartment());
+        return employee;
     }
 }
