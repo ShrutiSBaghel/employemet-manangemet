@@ -1,6 +1,6 @@
 package org.example.ems.controller;
 
-import org.example.ems.DTOs.EmployeeDto;
+import org.example.ems.dto.EmployeeDto;
 import org.example.ems.model.Employee;
 import org.example.ems.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;

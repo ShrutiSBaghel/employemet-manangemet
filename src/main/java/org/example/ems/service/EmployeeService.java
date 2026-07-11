@@ -1,5 +1,5 @@
 package org.example.ems.service;
-import org.example.ems.DTOs.EmployeeDto;
+import org.example.ems.dto.EmployeeDto;
 import org.example.ems.model.Employee;
 import org.example.ems.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

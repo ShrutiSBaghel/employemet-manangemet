@@ -1,4 +1,4 @@
-package org.example.ems.DTOs;
+package org.example.ems.dto;
 
 import lombok.Getter;
 import lombok.Setter;
