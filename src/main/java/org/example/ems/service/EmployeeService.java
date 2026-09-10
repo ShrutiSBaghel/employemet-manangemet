@@ -1,9 +1,11 @@
 package org.example.ems.service;
+
 import org.example.ems.dto.EmployeeDto;
 import org.example.ems.model.Employee;
 import org.example.ems.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -17,7 +19,11 @@ public class EmployeeService {
     }
 
     public void addEmployee(EmployeeDto employee) {
-        employeeRepository.save(employeeDtoToEntity(employee));
+        createEmployee(employee);
+    }
+
+    public Employee createEmployee(EmployeeDto employee) {
+        return employeeRepository.save(employeeDtoToEntity(employee));
     }
 
     public void updateEmployee(Integer id, EmployeeDto updatedEmployee) {

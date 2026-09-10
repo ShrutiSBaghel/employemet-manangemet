@@ -13,8 +13,8 @@ import java.util.Date;
 @Service
 public class JwtService {
     private static final String SECRET =
-            System.getenv("SECRET_KEY");
-    private static final long EXPIRATION_MS = 1000L * 60 * 60 * 24;
+            "this-is-a-demo-secret-key-change-this-before-production-123456";
+    private static final long EXPIRATION_MS = 1000 * 60 * 60;
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
