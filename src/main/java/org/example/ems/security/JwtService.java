@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -12,8 +13,9 @@ import java.util.Date;
 
 @Service
 public class JwtService {
-    private static final String SECRET =
-            "this-is-a-demo-secret-key-change-this-before-production-123456";
+    // need to make it final and static??
+    @Value("${jwt_secret_key}")
+    private String SECRET;
     private static final long EXPIRATION_MS = 1000 * 60 * 60;
 
     private SecretKey getSigningKey() {
